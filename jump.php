@@ -10,7 +10,6 @@ define('_RETURN', 'index.html');
 // URL match
 $URL = htmlspecialchars($_SERVER['QUERY_STRING']);
 if (!preg_match('/^[a-zA-Z]+:\/\//i', $URL)) $URL = '//'.$URL;
-$URL = strtolower($URL);
 $msg = $URL ? 'Are you sure you want to leave?' : 'Invalid URL.';
 
 // proxy
