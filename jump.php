@@ -1,11 +1,6 @@
 <?php
-define('SQLHOST', '');
-define('SQLUSER', '');
-define('SQLPASS', '');
-define('SQLDB', '');
-define('SQLTABLE', 'ref');
-define('REMOTE_ADDR', $_SERVER['REMOTE_ADDR']); // change for cloudflare
-define('_RETURN', 'index.html');
+define('REMOTE_ADDR', $_SERVER['REMOTE_ADDR']); // Change for cloudflare
+define('_RETURN', ''); // Change this to the site its being implimented on
 
 // URL match
 $URL = htmlspecialchars($_SERVER['QUERY_STRING']);
@@ -36,21 +31,12 @@ function l() {
 	link.focus();
 }
 		</script>
-<style>
-    body {
-    font-family: Mona, 'MS PGothic' !important;
-    word-wrap: break-word;
-    line-height: 1;
-    font-size: 12pt;
-}
-</style>
 	</head>
 	<body onload="l();" link="#0000ee" vlink="#0000EE" text="#000" bgcolor="#ffffff" alink="#FF0000">
         <h1>★K! Jump★</h1>
         <hr>
 <center>
 <p><font color="#F00" size="6"><b>■WARNING■</b></font></p>
-
 		<?php if($URL){ ?><a rel="noopener noreferrer" href="<?=$URL?>" id="linkto"><?=$URL?></a><?php } ?>
 		<p>
 			<font size="4" color="#F00"><b><?=$msg?></b></font>
