@@ -1,52 +1,44 @@
 <?php
-define('REMOTE_ADDR', $_SERVER['REMOTE_ADDR']); // Change for cloudflare
-define('_RETURN', ''); // Change this to the site its being implimented on
+define('REMOTE_ADDR', $_SERVER['REMOTE_ADDR']); // change for cloudflare
+define('_RETURN', 'index.html');
 
 // URL match
-$URL = htmlspecialchars($_SERVER['QUERY_STRING']);
-if (!preg_match('/^[a-zA-Z]+:\/\//i', $URL)) $URL = '//'.$URL;
-$msg = $URL ? 'Are you sure you want to leave?' : 'Invalid URL.';
-
-// proxy
-$proxy = '';
-if ($_SERVER['HTTP_CLIENT_IP']??false)
-	$proxy = $_SERVER['HTTP_CLIENT_IP'];
-else if ($_SERVER['HTTP_X_FORWARDED_FOR']??false)
-	$proxy = $_SERVER['HTTP_X_FORWARDED_FOR'];
-if ($proxy==REMOTE_ADDR
- || !filter_var($proxy, FILTER_VALIDATE_IP))
-	$proxy = '';
-
-
-// page
-?><!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>K! Jump</title>
-		<meta name="robots" content="nofollow,noarchive" />
-		<script>
-function l() {
-	var link = document.getElementById("linkto");
-	link.focus();
+ $URL = strip_tags(urldecode($_SERVER['QUERY_STRING']));
+if (!preg_match('/^[a-zA-Z]+:\/\//i', $URL))  {
+	die("Invalid URL");
 }
-		</script>
-	</head>
-	<body onload="l();" link="#0000ee" vlink="#0000EE" text="#000" bgcolor="#ffffff" alink="#FF0000">
-        <h1>★K! Jump★</h1>
-        <hr>
-<center>
-<p><font color="#F00" size="6"><b>■WARNING■</b></font></p>
-		<?php if($URL){ ?><a rel="noopener noreferrer" href="<?=$URL?>" id="linkto"><?=$URL?></a><?php } ?>
-		<p>
-			<font size="4" color="#F00"><b><?=$msg?></b></font>
-            
-            <p>[<a href="<?=$_SERVER['HTTP_REFERER']??_RETURN?>" onclick="event.preventDefault();history.go(-1);">Back</a>] [<a rel="noopener noreferrer" href="<?=$URL?>" id="linkto">Continue</a>]</p>
-		</p>
-</center>
-        <hr>
-		<p align="RIGHT"><font color="#080"><b>K! Jump ★</b></font></p>
-	</body>
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Jump</title>
+	<meta name="robots" content="nofollow,noarchive" />
+	<script>
+		function l() {
+			var link = document.getElementById("linkto");
+			link.focus();
+		}
+
+	</script>
+	<script src="https://kncdn.org/knirp.php?js"></script>
+</head>
+
+<body onload="l();" link="#0000ee" vlink="#0000EE" text="#000" bgcolor="#ffffff" alink="#FF0000">
+	<b><a href="<?=$URL?>"><?=$URL?></a></b><br>
+	 Jumping to new URL... click the link to continue
+	 <p align="RIGHT"><b><a href="https://www.kolyma.org/join">[★]Developers, Moderators, Janitors, etc wanted! Enlist today! Join the 50 cent army!</a></b></p>
+	 <p align="RIGHT"><b><a href="https://nss.kolyma.org/join">[★] Join the NSS</a></b></p>
+	     <hr>
+		<iframe src='//kncdn.org/fonts.php' frameborder='0' scrolling='no' width='728' height='90'></iframe><br />
+		<iframe src='//kncdn.org/fonts.php' frameborder='0' scrolling='no' width='728' height='90'></iframe><br />
+		<iframe src='//kncdn.org/fonts.php' frameborder='0' scrolling='no' width='728' height='90'></iframe><br />
+	
+	
+</body>
+
 </html>
 <?php
 exit;
